@@ -1,0 +1,5 @@
+SELECT c.`created_by` AS 'Created By',c.`created_dttm` AS 'Created Date',COUNT(c.FILENAME) AS 'Entry Count'
+FROM `metadata_entry` c,`batch_master` b,`project_master` a 
+WHERE a.`proj_key` = b.`proj_code`
+AND b.`proj_code` = c.`proj_key` AND b.`batch_key` = c.`batch_key`
+GROUP BY c.`created_by`,c.`created_dttm`
