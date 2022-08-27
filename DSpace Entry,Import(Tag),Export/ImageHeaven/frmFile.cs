@@ -22,27 +22,45 @@ namespace ImageHeaven
         public static int flag;
         public static string proj;
         public static string batch;
-        
+        Credentials crd = new Credentials();
+        public static string projKey;
+        public static string batchKey;
 
         public frmFile()
         {
             InitializeComponent();
         }
 
-        public frmFile(OdbcConnection pCon)
+        public frmFile(OdbcConnection pCon, Credentials prmCrd)
         {
             InitializeComponent();
 
             sqlCon = pCon;
+            crd = prmCrd;
         }
 
+        private void FormatDataGridView()
+        {
+            //Format the Data Grid View
+            dgvDash.Columns[2].Visible = false;
+            dgvDash.Columns[3].Visible = false;
+            //grdCsv.Columns[2].Visible = false;
+            //grdCsv.Columns[9].Visible = false;
+            //grdCsv.Columns[10].Visible = false;
+            //grdCsv.Columns[11].Visible = false;
+            //grdCsv.Columns[12].Visible = false;
+            //grdCsv.Columns[13].Visible = false;
+            //dtGrdVol.Columns[2].Visible = false;
+            //Format Colors
 
+
+        }
         public void dashlist()
         {
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
 
-            string sql = "SELECT a.proj_code AS 'Project Name',b.batch_code AS 'Batch Name', COUNT(c.`batch_key`) AS 'Count' FROM project_master a,batch_master b,metadata_entry c WHERE a.proj_key = b.proj_code AND b.proj_code = c.proj_key AND b.batch_key = c.batch_key AND c.proj_key = a.proj_key GROUP BY c.`batch_key` ";
+            string sql = "SELECT a.proj_code AS 'Project Name',b.batch_code AS 'Batch Name',b.proj_code,b.batch_key, COUNT(c.`batch_key`) AS 'Count' FROM project_master a,batch_master b,metadata_entry c WHERE a.proj_key = b.proj_code AND b.proj_code = c.proj_key AND b.batch_key = c.batch_key AND c.proj_key = a.proj_key GROUP BY c.`batch_key` ";
 
             OdbcDataAdapter odap = new OdbcDataAdapter(sql, sqlCon);
             odap.Fill(dt);
@@ -52,7 +70,7 @@ namespace ImageHeaven
             {
 
                 dgvDash.DataSource = dt;
-
+                FormatDataGridView();
             }
             else
             {
@@ -162,7 +180,7 @@ namespace ImageHeaven
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
 
-            string sql = "SELECT a.proj_code AS 'Project Name',b.batch_code AS 'Batch Name', COUNT(c.`batch_key`) AS 'Count' FROM project_master a,batch_master b,metadata_entry c WHERE a.proj_key = b.proj_code AND b.proj_code = c.proj_key AND b.batch_key = c.batch_key AND c.proj_key = a.proj_key and a.proj_code = '" + proj + "' GROUP BY c.`batch_key`,c.proj_key ";
+            string sql = "SELECT a.proj_code AS 'Project Name',b.batch_code AS 'Batch Name',b.proj_code,b.batch_key, COUNT(c.`batch_key`) AS 'Count' FROM project_master a,batch_master b,metadata_entry c WHERE a.proj_key = b.proj_code AND b.proj_code = c.proj_key AND b.batch_key = c.batch_key AND c.proj_key = a.proj_key and a.proj_code = '" + proj + "' GROUP BY c.`batch_key`,c.proj_key ";
 
             OdbcDataAdapter odap = new OdbcDataAdapter(sql, sqlCon);
             odap.Fill(dt);
@@ -172,7 +190,7 @@ namespace ImageHeaven
             {
 
                 dgvDash.DataSource = dt;
-
+                FormatDataGridView();
             }
             else
             {
@@ -184,7 +202,7 @@ namespace ImageHeaven
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
 
-            string sql = "SELECT a.proj_code AS 'Project Name',b.batch_code AS 'Batch Name', COUNT(c.`batch_key`) AS 'Count' FROM project_master a,batch_master b,metadata_entry c WHERE a.proj_key = b.proj_code AND b.proj_code = c.proj_key AND b.batch_key = c.batch_key AND c.proj_key = a.proj_key and b.batch_code = '" + batch + "' GROUP BY c.`batch_key`,c.proj_key ";
+            string sql = "SELECT a.proj_code AS 'Project Name',b.batch_code AS 'Batch Name',b.proj_code,b.batch_key, COUNT(c.`batch_key`) AS 'Count' FROM project_master a,batch_master b,metadata_entry c WHERE a.proj_key = b.proj_code AND b.proj_code = c.proj_key AND b.batch_key = c.batch_key AND c.proj_key = a.proj_key and b.batch_code = '" + batch + "' GROUP BY c.`batch_key`,c.proj_key ";
 
             OdbcDataAdapter odap = new OdbcDataAdapter(sql, sqlCon);
             odap.Fill(dt);
@@ -194,7 +212,7 @@ namespace ImageHeaven
             {
 
                 dgvDash.DataSource = dt;
-
+                FormatDataGridView();
             }
             else
             {
@@ -206,7 +224,7 @@ namespace ImageHeaven
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
 
-            string sql = "SELECT a.proj_code AS 'Project Name',b.batch_code AS 'Batch Name', COUNT(c.`batch_key`) AS 'Count' FROM project_master a,batch_master b,metadata_entry c WHERE a.proj_key = b.proj_code AND b.proj_code = c.proj_key AND b.batch_key = c.batch_key AND c.proj_key = a.proj_key and a.proj_code = '" + proj + "' and b.batch_code = '" + batch + "' GROUP BY c.`batch_key`,c.proj_key ";
+            string sql = "SELECT a.proj_code AS 'Project Name',b.batch_code AS 'Batch Name',b.proj_code,b.batch_key, COUNT(c.`batch_key`) AS 'Count' FROM project_master a,batch_master b,metadata_entry c WHERE a.proj_key = b.proj_code AND b.proj_code = c.proj_key AND b.batch_key = c.batch_key AND c.proj_key = a.proj_key and a.proj_code = '" + proj + "' and b.batch_code = '" + batch + "' GROUP BY c.`batch_key`,c.proj_key ";
 
             OdbcDataAdapter odap = new OdbcDataAdapter(sql, sqlCon);
             odap.Fill(dt);
@@ -216,7 +234,7 @@ namespace ImageHeaven
             {
 
                 dgvDash.DataSource = dt;
-
+                FormatDataGridView();
             }
             else
             {
@@ -236,7 +254,9 @@ namespace ImageHeaven
             //this.Hide();
             proj = dgvDash.SelectedRows[0].Cells[0].Value.ToString();
             batch = dgvDash.SelectedRows[0].Cells[1].Value.ToString();
-            frmFileSum frm = new frmFileSum(sqlCon);
+            projKey = dgvDash.SelectedRows[0].Cells[2].Value.ToString();
+            batchKey = dgvDash.SelectedRows[0].Cells[3].Value.ToString();
+            frmFileSum frm = new frmFileSum(sqlCon,crd);
             frm.ShowDialog();
         }
 
@@ -245,7 +265,9 @@ namespace ImageHeaven
             //this.Hide();
             proj = dgvDash.SelectedRows[0].Cells[0].Value.ToString();
             batch = dgvDash.SelectedRows[0].Cells[1].Value.ToString();
-            frmFileSum frm = new frmFileSum(sqlCon);
+            projKey = dgvDash.SelectedRows[0].Cells[2].Value.ToString();
+            batchKey = dgvDash.SelectedRows[0].Cells[3].Value.ToString();
+            frmFileSum frm = new frmFileSum(sqlCon,crd);
             frm.ShowDialog();
         }
 
@@ -254,7 +276,9 @@ namespace ImageHeaven
             //this.Hide();
             proj = dgvDash.SelectedRows[0].Cells[0].Value.ToString();
             batch = dgvDash.SelectedRows[0].Cells[1].Value.ToString();
-            frmFileSum frm = new frmFileSum(sqlCon);
+            projKey = dgvDash.SelectedRows[0].Cells[2].Value.ToString();
+            batchKey = dgvDash.SelectedRows[0].Cells[3].Value.ToString();
+            frmFileSum frm = new frmFileSum(sqlCon,crd);
             frm.ShowDialog();
         }
         

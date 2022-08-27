@@ -510,6 +510,9 @@ D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag
 D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag),Export\LItems\bin\Debug\NovaNet.Utils.dll
 D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag),Export\LItems\bin\Debug\NovaNet.wfe.dll
 D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag),Export\LItems\bin\Debug\NovaNet.wfe.pdb
-D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag),Export\LItems\obj\Debug\LItems.csprojResolveAssemblyReference.cache
 D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag),Export\LItems\obj\Debug\LItems.dll
 D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag),Export\LItems\obj\Debug\LItems.pdb
+D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag),Export\LItems\bin\Debug\NovaNet.wfe.dll.config
+D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag),Export\LItems\obj\Debug\LItems.csproj.CoreCompileInputs.cache
+D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag),Export\LItems\obj\Debug\LItems.csproj.CopyComplete
+D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag),Export\LItems\obj\Debug\LItems.csproj.AssemblyReference.cache

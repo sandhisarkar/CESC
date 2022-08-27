@@ -22,7 +22,7 @@ namespace ImageHeaven
         public static bool _modeBool;
         //DataLayerDefs.Mode _mode = _modeBool;
 
-        public static DataLayerDefs.Mode _mode =  DataLayerDefs.Mode._Edit;
+        public static DataLayerDefs.Mode _mode = DataLayerDefs.Mode._Edit;
 
         public static string projKey;
         public static string batchKey;
@@ -34,18 +34,18 @@ namespace ImageHeaven
             InitializeComponent();
         }
 
-        public frmEntry(OdbcConnection pCon,DataLayerDefs.Mode mode)
+        public frmEntry(OdbcConnection pCon, DataLayerDefs.Mode mode)
         {
             InitializeComponent();
 
-            if(mode == DataLayerDefs.Mode._Add)
+            if (mode == DataLayerDefs.Mode._Add)
             {
                 txtProject.Text = frmBatchSelect.projName;
                 txtBatch.Text = frmBatchSelect.batchName;
                 projKey = frmBatchSelect.projKey;
                 batchKey = frmBatchSelect.batchKey;
 
-                
+
 
                 label1.Visible = false;
                 label2.Visible = false;
@@ -59,14 +59,14 @@ namespace ImageHeaven
                 _mode = mode;
                 cmbMonth.SelectedIndex = 0;
             }
-            if(mode == DataLayerDefs.Mode._Edit)
+            if (mode == DataLayerDefs.Mode._Edit)
             {
                 txtProject.Text = frmFileSum.proj_name;
                 txtBatch.Text = frmFileSum.batch_name;
                 //projKey = frmBatchSelect.projKey;
                 //batchKey = frmBatchSelect.batchKey;
 
-                
+
 
                 label1.Visible = false;
                 label2.Visible = false;
@@ -81,7 +81,7 @@ namespace ImageHeaven
             }
             sqlCon = pCon;
         }
-        
+
 
         private void frmEntry_Load(object sender, EventArgs e)
         {
@@ -97,12 +97,12 @@ namespace ImageHeaven
                 txtLetterNo.Select();
             }
 
-            if(_mode == DataLayerDefs.Mode._Edit)
+            if (_mode == DataLayerDefs.Mode._Edit)
             {
                 DataSet ds = new DataSet();
                 DataTable dt = new DataTable();
 
-                string sql = "select c.proj_key,c.batch_key from project_master a,batch_master b,metadata_entry c where a.proj_key = c.proj_key and a.proj_key = b.proj_code and b.batch_key = c.batch_key and a.proj_code = '" + frmFileSum.proj_name + "' and b.batch_code = '"+frmFileSum.batch_name+"'";
+                string sql = "select c.proj_key,c.batch_key from project_master a,batch_master b,metadata_entry c where a.proj_key = c.proj_key and a.proj_key = b.proj_code and b.batch_key = c.batch_key and a.proj_code = '" + frmFileSum.proj_name + "' and b.batch_code = '" + frmFileSum.batch_name + "'";
 
                 OdbcDataAdapter odap = new OdbcDataAdapter(sql, sqlCon);
                 odap.Fill(dt);
@@ -112,7 +112,7 @@ namespace ImageHeaven
 
                 DataSet ds1 = new DataSet();
                 DataTable dt1 = new DataTable();
-                string sql1 = "select letter_no,issue_from,issue_to,sub_cat,sub_name,doc_type,issue_date,filename from metadata_entry where proj_key = '"+projKey+"' and batch_key = '"+batchKey+"' and filename = '"+frmFileSum.filename+"'";
+                string sql1 = "select reference_no,issue_from,issue_to,sub_cat,sub_name,doc_type,issue_date,filename from metadata_entry where proj_key = '" + projKey + "' and batch_key = '" + batchKey + "' and filename = '" + frmFileSum.filename + "'";
                 OdbcDataAdapter odap1 = new OdbcDataAdapter(sql1, sqlCon);
                 odap1.Fill(dt1);
 
@@ -124,8 +124,8 @@ namespace ImageHeaven
                 cmbDocType.Text = dt1.Rows[0][5].ToString();
                 string datefrmdt = dt1.Rows[0][6].ToString();
                 txtYear.Text = datefrmdt.Substring(0, 4);
-                cmbMonth.Text = datefrmdt.Substring(5,2);
-                txtDate.Text = datefrmdt.Substring(8,2);
+                cmbMonth.Text = datefrmdt.Substring(5, 2);
+                txtDate.Text = datefrmdt.Substring(8, 2);
                 filename = dt1.Rows[0][7].ToString();
 
 
@@ -210,7 +210,7 @@ namespace ImageHeaven
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-           // dateTimePicker1.CustomFormat = "yyyy-MM-dd";
+            // dateTimePicker1.CustomFormat = "yyyy-MM-dd";
             label7.ForeColor = Color.Black;
             label7.Visible = true;
             label7.Text = "When was the document issued";
@@ -246,48 +246,76 @@ namespace ImageHeaven
                 //txtIssuedFrom.Text = string.Empty;
                 //txtIssuedTo.Text = string.Empty;
                 //txtSubject.Text = string.Empty;
-                
+
             }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (validate() == true)
+
+            if (_mode == DataLayerDefs.Mode._Add)
             {
-                if(_mode == DataLayerDefs.Mode._Add)
+                if (_GetMetaCount(projKey, batchKey, txtLetterNo.Text.ToUpper()).Rows.Count == 0)
                 {
-                    bool insertmeta = insertFn();
-                    if (insertmeta == true)
+                    DialogResult dr = MessageBox.Show(this, "Do you want to Save ? ", "CESC - Record Management ", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dr == DialogResult.Yes)
                     {
-                        MessageBox.Show(this, "Successfully Inserted...", " ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        frmEntry_Load(sender, e);
-                        txtLetterNo.Text = string.Empty;
-                        txtIssuedFrom.Text = string.Empty;
-                        txtIssuedTo.Text = string.Empty;
-                        txtSubject.Text = string.Empty;
-                        //txtYear.Text = string.Empty;
-                        //txtDate.Text = string.Empty;
-                        txtLetterNo.Select();
-                    }
-                    else
-                    {
-                        MessageBox.Show(this, "Ooops!!! There is an Error - Record not Saved...", " ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (validate() == true)
+                        {
+                            bool insertmeta = insertFn();
+                            if (insertmeta == true)
+                            {
+                                MessageBox.Show(this, "Successfully Inserted...", " ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                frmEntry_Load(sender, e);
+                                txtLetterNo.Text = string.Empty;
+                                txtIssuedFrom.Text = string.Empty;
+                                txtIssuedTo.Text = string.Empty;
+                                txtSubject.Text = string.Empty;
+                                //txtYear.Text = string.Empty;
+                                //txtDate.Text = string.Empty;
+                                txtLetterNo.Select();
+                            }
+                            else
+                            {
+                                MessageBox.Show(this, "Ooops!!! There is an Error - Record not Saved...", " ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
                     }
                 }
-                if (_mode == DataLayerDefs.Mode._Edit)
+                else
                 {
-                    bool updatemeta = updateFn();
-                    if (updatemeta == true)
-                    {
-                        MessageBox.Show(this, "Successfully Inserted...", " ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show(this, "Ooops!!! There is an Error - Record not Saved...", " ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show(this, "Record Exists...", "CESC - Record Management ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtLetterNo.Select();
+                    txtLetterNo.Focus();
+                    //return;
+                    //this.Close();
+                    //Files fm = new Files(sqlCon, DataLayerDefs.Mode._Add, txn, crd);
+                    //fm.ShowDialog(this);
                 }
+
             }
+            if (_mode == DataLayerDefs.Mode._Edit)
+            {
+                DialogResult dr = MessageBox.Show(this, "Do you want to Save ? ", "CESC - Record Management ", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dr == DialogResult.Yes)
+                {
+                    if (validate() == true)
+                    {
+                        bool updatemeta = updateFn();
+                        if (updatemeta == true)
+                        {
+                            MessageBox.Show(this, "Successfully Inserted...", " ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show(this, "Ooops!!! There is an Error - Record not Saved...", " ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+
+            }
+
             //else
             //{
             //    MessageBox.Show("Please select all the parameter...", " ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -295,7 +323,15 @@ namespace ImageHeaven
             //    //txtLetterNo.Select();
             //}
         }
-
+        public DataTable _GetMetaCount(string proj, string bundle, string refNo)
+        {
+            DataTable dt = new DataTable();
+            string sql = "select distinct proj_key, batch_Key,item_no,reference_no from metadata_entry where proj_key = '" + proj + "' and batch_key = '" + bundle + "' and reference_no = '" + refNo + "' ";
+            OdbcCommand cmd = new OdbcCommand(sql, sqlCon);
+            OdbcDataAdapter odap = new OdbcDataAdapter(cmd);
+            odap.Fill(dt);
+            return dt;
+        }
         public bool insertFn()
         {
             bool ret = false;
@@ -337,14 +373,14 @@ namespace ImageHeaven
             {
 
                 sl_no = "0";
-                filenameAdd = txtIssuedFrom.Text + "_" + txtIssuedTo.Text + "_" + txtYear.Text +  cmbMonth.Text +  txtDate.Text;
+                filenameAdd = txtLetterNo.Text.ToUpper();
             }
             else
             {
                 int tmp_sl = Convert.ToInt32(dt.Rows[0][0].ToString());
                 int tmp_sl_1 = tmp_sl + 1;
                 sl_no = Convert.ToString(tmp_sl_1);
-                filenameAdd = txtIssuedFrom.Text + "_" + txtIssuedTo.Text + "_" + txtYear.Text + cmbMonth.Text +  txtDate.Text + "_" + sl_no;
+                filenameAdd = txtLetterNo.Text.ToUpper();
             }
 
             string sqlcouItem = "select Count(item_no) from metadata_entry where proj_key = '" + frmBatchSelect.projKey + "' and batch_key = '" + frmBatchSelect.batchKey + "' ";
@@ -366,7 +402,7 @@ namespace ImageHeaven
             }
 
 
-            sql = "insert into metadata_entry(proj_key,batch_key,sl_no,item_no,letter_no,issue_from,issue_to,sub_cat,sub_name,doc_type,issue_date,filename,created_by,created_dttm,status)" +
+            sql = "insert into metadata_entry(proj_key,batch_key,sl_no,item_no,reference_no,issue_from,issue_to,sub_cat,sub_name,doc_type,issue_date,filename,created_by,created_dttm,status)" +
                     "values('" + frmBatchSelect.projKey + "', " +
                         "'" + frmBatchSelect.batchKey + "', " +
                         "'" + sl_no + "', " +
@@ -399,37 +435,37 @@ namespace ImageHeaven
             odap.Fill(dt);
 
             int xyz = Convert.ToInt32(dt.Rows[0][0].ToString());
-            
+
             if (xyz == 0)
             {
-                    sl_no = "0";
-                    filenameEdit = txtIssuedFrom.Text + "_" + txtIssuedTo.Text + "_" + txtYear.Text + cmbMonth.Text + txtDate.Text;
+                sl_no = "0";
+                filenameEdit = txtLetterNo.Text.ToUpper();
             }
             else
             {
-                string sqlcou1 = "select sl_no from metadata_entry where proj_key = '" + projKey + "' and batch_key = '" + batchKey + "' AND filename = '"+filename+"'";
+                string sqlcou1 = "select sl_no from metadata_entry where proj_key = '" + projKey + "' and batch_key = '" + batchKey + "' AND filename = '" + filename + "'";
                 DataSet ds1 = new DataSet();
                 DataTable dt1 = new DataTable();
                 OdbcDataAdapter odap1 = new OdbcDataAdapter(sqlcou1, sqlCon);
                 odap1.Fill(dt1);
                 string zyx = dt1.Rows[0][0].ToString();
-                string fname = txtIssuedFrom.Text.ToUpper() + "_" + txtIssuedTo.Text.ToUpper() + "_" + txtYear.Text + cmbMonth.Text + txtDate.Text;
+                string fname = txtLetterNo.Text.ToUpper();
                 if ((fname == filename))
                 {
                     sl_no = "0";
-                    filenameEdit = txtIssuedFrom.Text + "_" + txtIssuedTo.Text + "_" + txtYear.Text + cmbMonth.Text + txtDate.Text;
+                    filenameEdit = txtLetterNo.Text.ToUpper();
                 }
                 else
                 {
                     int tmp_sl = Convert.ToInt32(dt1.Rows[0][0].ToString());
                     int tmp_sl_1 = tmp_sl + 1;
                     sl_no = Convert.ToString(tmp_sl_1);
-                    filenameEdit = txtIssuedFrom.Text + "_" + txtIssuedTo.Text + "_" + txtYear.Text + cmbMonth.Text + txtDate.Text + "_" + sl_no;
+                    filenameEdit = txtLetterNo.Text.ToUpper();
                 }
-                
+
             }
 
-            sql = "UPDATE metadata_entry SET sl_no = '" + sl_no + "',letter_no = '" + txtLetterNo.Text.ToUpper() + "',issue_from = '" + txtIssuedFrom.Text.ToUpper() + "',issue_to = '" + txtIssuedTo.Text.ToUpper() + "',sub_cat = '" + cmbSubCat.Text + "',sub_name= '" + txtSubject.Text + "',doc_type= '" + cmbDocType.Text + "',issue_date= '" + txtYear.Text + "-" + cmbMonth.Text + "-" + txtDate.Text + "',filename = '"+filenameEdit.ToUpper()+"' WHERE proj_key = '"+projKey+"' AND batch_key = '"+batchKey+"' AND filename ='"+filename+"'";
+            sql = "UPDATE metadata_entry SET sl_no = '" + sl_no + "',reference_no = '" + txtLetterNo.Text.ToUpper() + "',issue_from = '" + txtIssuedFrom.Text.ToUpper() + "',issue_to = '" + txtIssuedTo.Text.ToUpper() + "',sub_cat = '" + cmbSubCat.Text + "',sub_name= '" + txtSubject.Text + "',doc_type= '" + cmbDocType.Text + "',issue_date= '" + txtYear.Text + "-" + cmbMonth.Text + "-" + txtDate.Text + "',filename = '" + filenameEdit.ToUpper() + "' WHERE proj_key = '" + projKey + "' AND batch_key = '" + batchKey + "' AND filename ='" + filename + "'";
             System.Diagnostics.Debug.Print(sql);
             OdbcCommand cmd = new OdbcCommand(sql, sqlCon);
             if (cmd.ExecuteNonQuery() > 0)
@@ -445,23 +481,23 @@ namespace ImageHeaven
         {
             bool retval = false;
 
-            //if (txtLetterNo.Text == null || txtLetterNo.Text == "")
-            //{
-            //    //retval = true;
-            //    retval = false;
-            //    MessageBox.Show("You cannot leave this field blank..", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    txtLetterNo.Focus();
-            //    txtLetterNo.Select();
-            //    return retval;
-            //}
-            //else
-            //{
-            //    retval = true;
-            //    //MessageBox.Show("", "You cannot leave this field blank..", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    //txtLetterNo.Focus();
-            //    //txtLetterNo.Select();
-            //    //return retval;
-            //}
+            if (txtLetterNo.Text == null || txtLetterNo.Text == "")
+            {
+                //retval = true;
+                retval = false;
+                MessageBox.Show("You cannot leave this field blank..", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtLetterNo.Focus();
+                txtLetterNo.Select();
+                return retval;
+            }
+            else
+            {
+                retval = true;
+                //MessageBox.Show("", "You cannot leave this field blank..", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //txtLetterNo.Focus();
+                //txtLetterNo.Select();
+                //return retval;
+            }
             if (txtIssuedFrom.Text == null || txtIssuedFrom.Text == "")
             {
 
@@ -595,7 +631,7 @@ namespace ImageHeaven
             //    return retval;
             //}
             string isDate = txtYear.Text + "-" + cmbMonth.Text + "-" + txtDate.Text;
-            if (DateTime.Parse(txtYear.Text+"-"+cmbMonth.Text+"-"+txtDate.Text) <= DateTime.Parse(currDate))
+            if (DateTime.Parse(txtYear.Text + "-" + cmbMonth.Text + "-" + txtDate.Text) <= DateTime.Parse(currDate))
             {
                 retval = true;
             }
@@ -607,7 +643,7 @@ namespace ImageHeaven
                 //dateTimePicker1.Select();
                 return retval;
             }
-            
+
             //string sqlcou = "select * from metadata_entry where proj_key = '" + frmBatchSelect.projKey + "' and batch_key = '" + frmBatchSelect.batchKey + "' and letter_no = '" + txtLetterNo.Text.ToUpper() + "' and issue_date = '" + txtYear.Text + "-" + cmbMonth.Text + "-" + txtDate.Text + "'";
             //DataSet ds = new DataSet();
             //DataTable dt = new DataTable();
@@ -1201,7 +1237,7 @@ namespace ImageHeaven
             label7.Visible = true;
             label7.Text = "When was the document issued";
 
-           // dateTimePicker1.Value = DateTime.Today;
+            // dateTimePicker1.Value = DateTime.Today;
 
         }
 
@@ -1243,7 +1279,7 @@ namespace ImageHeaven
                     //txtYear.Select();
                     return;
                 }
-                else if (txtYear.Text.Substring(0,1) == "0")
+                else if (txtYear.Text.Substring(0, 1) == "0")
                 {
                     label7.ForeColor = Color.Red;
                     txtYear.Focus();

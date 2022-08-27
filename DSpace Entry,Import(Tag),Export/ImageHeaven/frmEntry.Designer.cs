@@ -591,11 +591,11 @@
             // 
             this.labelLetter.AutoSize = true;
             this.labelLetter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelLetter.Location = new System.Drawing.Point(47, 36);
+            this.labelLetter.Location = new System.Drawing.Point(20, 36);
             this.labelLetter.Name = "labelLetter";
-            this.labelLetter.Size = new System.Drawing.Size(72, 13);
+            this.labelLetter.Size = new System.Drawing.Size(98, 13);
             this.labelLetter.TabIndex = 0;
-            this.labelLetter.Text = "Letter No. :";
+            this.labelLetter.Text = "Reference No. :";
             this.labelLetter.Click += new System.EventHandler(this.labelLetter_Click);
             // 
             // panel1

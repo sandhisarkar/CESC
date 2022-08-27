@@ -281,7 +281,7 @@ namespace ImageHeaven
             DataTable dsVol = new DataTable();
             OdbcDataAdapter sqlAdap = null;
 
-            sqlStr = "select letter_no,issue_from,issue_to,sub_cat,sub_name,doc_type,issue_date from metadata_entry where filename = '" + deed_no + "' and proj_key = '" + projKey + "' and batch_key = '" + batchKey + "' ";
+            sqlStr = "select reference_no,issue_from,issue_to,sub_cat,sub_name,doc_type,issue_date from metadata_entry where filename = '" + deed_no + "' and proj_key = '" + projKey + "' and batch_key = '" + batchKey + "' ";
 
 
             try
@@ -303,7 +303,7 @@ namespace ImageHeaven
             DataSet dsVol = new DataSet();
             OdbcDataAdapter sqlAdap = null;
 
-            sqlStr = "select letter_no,issue_from,issue_to,sub_cat,sub_name,doc_type,issue_date from metadata_entry where filename = '" + deed_no + "' and proj_key = '"+projKey+"' and batch_key = '"+batchKey+"' ";
+            sqlStr = "select reference_no,issue_from,issue_to,sub_cat,sub_name,doc_type,issue_date from metadata_entry where filename = '" + deed_no + "' and proj_key = '"+projKey+"' and batch_key = '"+batchKey+"' ";
 
 
             try

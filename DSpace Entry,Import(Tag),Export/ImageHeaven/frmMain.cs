@@ -35,7 +35,7 @@ namespace ImageHeaven
         private short logincounter;
         //
 
-     
+
         public static string projectName = null;
         public static string batchName = null;
         public static string boxNumber = null;
@@ -63,7 +63,7 @@ namespace ImageHeaven
             AssemblyName assemName = Assembly.GetExecutingAssembly().GetName();
             this.Text = "Record Management" + "           Version: " + assemName.ToString();
             InitializeComponent();
-            
+
             logincounter = 0;
             //
             // TODO: Add constructor code after the InitializeComponent() call.
@@ -72,7 +72,7 @@ namespace ImageHeaven
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-           
+
             int k;
             dbcon = new NovaNet.Utils.dbCon();
             try
@@ -80,8 +80,8 @@ namespace ImageHeaven
                 string dllPaths = string.Empty;
 
                 menuStrip1.Visible = false;
-                
-                
+
+
                 if (sqlCon.State == ConnectionState.Open)
                 {
                     pData = getData;
@@ -89,10 +89,10 @@ namespace ImageHeaven
                     rbc = new NovaNet.Utils.RBAC(sqlCon, dbcon, pData, pCPwd);
                     //string test = sqlCon.Database;
                     GetChallenge gc = new GetChallenge(getData);
-                    
-                   
-                    
-                    
+
+
+
+
                     gc.ShowDialog(this);
 
                     crd = rbc.getCredentials(p);
@@ -117,6 +117,7 @@ namespace ImageHeaven
                         imageImportToolStripMenuItem.Visible = true;
                         exportToolStripMenuItem.Visible = true;
                         batchUploadToolStripMenuItem.Visible = true;
+                        productionReportToolStripMenuItem.Visible = true;
                     }
                     else
                     {
@@ -130,6 +131,8 @@ namespace ImageHeaven
                         imageImportToolStripMenuItem.Visible = true;
                         exportToolStripMenuItem.Visible = false;
                         batchUploadToolStripMenuItem.Visible = false;
+                        productionReportToolStripMenuItem.Visible = true;
+
                     }
                 }
             }
@@ -199,7 +202,7 @@ namespace ImageHeaven
                 dispProject = new frmProject(wi, sqlCon);
                 dispProject.ShowDialog(this);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -263,7 +266,7 @@ namespace ImageHeaven
             //frmBatchSelect frm = new frmBatchSelect(sqlCon);
             //frm.ShowDialog(this);
 
-            frmFile fm = new frmFile(sqlCon);
+            frmFile fm = new frmFile(sqlCon, crd);
             fm.ShowDialog();
         }
 
@@ -275,7 +278,7 @@ namespace ImageHeaven
 
 
             sqlCon.Open();
-            
+
             menuStrip1.Visible = false;
 
             frmMain_Load(sender, e);
@@ -301,10 +304,14 @@ namespace ImageHeaven
 
         private void batchUploadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmBatchUpload frm = new frmBatchUpload(sqlCon);
+            frmBundleUpload frm = new frmBundleUpload(sqlCon, crd);
             frm.ShowDialog();
         }
 
-        
+        private void productionReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmProduction frm = new frmProduction(sqlCon);
+            frm.ShowDialog();
+        }
     }
 }

@@ -114,7 +114,7 @@ namespace ImageHeaven
 
         private void cmbProject_MouseLeave(object sender, EventArgs e)
         {
-            populateBatch();
+            //populateBatch();
         }
 
         private void button2_Click(object sender, EventArgs e)

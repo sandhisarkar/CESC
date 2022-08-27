@@ -355,9 +355,9 @@
             this.label30.ForeColor = System.Drawing.Color.Black;
             this.label30.Location = new System.Drawing.Point(181, 20);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(34, 13);
+            this.label30.Size = new System.Drawing.Size(41, 13);
             this.label30.TabIndex = 53;
-            this.label30.Text = "Letter";
+            this.label30.Text = "Ref No";
             // 
             // groupBox4
             // 
@@ -434,6 +434,7 @@
             this.lstSelImg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstSelImg.FullRowSelect = true;
             this.lstSelImg.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lstSelImg.HideSelection = false;
             this.lstSelImg.Location = new System.Drawing.Point(3, 16);
             this.lstSelImg.Name = "lstSelImg";
             this.lstSelImg.Size = new System.Drawing.Size(166, 207);
@@ -577,6 +578,7 @@
             this.lstSelectedImg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstSelectedImg.FullRowSelect = true;
             this.lstSelectedImg.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lstSelectedImg.HideSelection = false;
             this.lstSelectedImg.Location = new System.Drawing.Point(3, 16);
             this.lstSelectedImg.Name = "lstSelectedImg";
             this.lstSelectedImg.Size = new System.Drawing.Size(166, 207);
@@ -769,9 +771,9 @@
             this.label14.ForeColor = System.Drawing.Color.Black;
             this.label14.Location = new System.Drawing.Point(169, 24);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(34, 13);
+            this.label14.Size = new System.Drawing.Size(41, 13);
             this.label14.TabIndex = 67;
-            this.label14.Text = "Letter";
+            this.label14.Text = "Ref No";
             // 
             // groupBox7
             // 
@@ -869,6 +871,7 @@
             this.lstSelectedAddl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstSelectedAddl.FullRowSelect = true;
             this.lstSelectedAddl.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lstSelectedAddl.HideSelection = false;
             this.lstSelectedAddl.Location = new System.Drawing.Point(3, 16);
             this.lstSelectedAddl.Name = "lstSelectedAddl";
             this.lstSelectedAddl.Size = new System.Drawing.Size(166, 153);
@@ -1170,6 +1173,7 @@
             this.listView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView2.FullRowSelect = true;
             this.listView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listView2.HideSelection = false;
             this.listView2.Location = new System.Drawing.Point(3, 16);
             this.listView2.Name = "listView2";
             this.listView2.Size = new System.Drawing.Size(166, 207);
@@ -1214,6 +1218,7 @@
             this.listView6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView6.FullRowSelect = true;
             this.listView6.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listView6.HideSelection = false;
             this.listView6.Location = new System.Drawing.Point(3, 16);
             this.listView6.Name = "listView6";
             this.listView6.Size = new System.Drawing.Size(166, 207);

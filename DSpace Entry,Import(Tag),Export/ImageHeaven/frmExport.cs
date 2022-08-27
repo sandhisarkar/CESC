@@ -14,7 +14,11 @@ using System.Collections.ObjectModel;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Runtime.InteropServices;
-
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
+using Syncfusion.Pdf.Parsing;
+using Syncfusion.OCRProcessor;
+using Syncfusion.OCRProcessor.Interop;
 
 namespace ImageHeaven
 {
@@ -581,8 +585,157 @@ namespace ImageHeaven
 
                                         if (img.TifToPdf(imageName, 80, expFolder + "\\Export\\" + cmbBatch.Text + "\\" + IMGName + ".pdf") == true)
                                         {
+                                            string pdf_path = expFolder + "\\Export\\" + cmbBatch.Text + "\\" + fileName + ".pdf";
+                                            file = fileName + ".pdf";
+                                            string dirname = Path.GetDirectoryName(pdf_path);
+                                            //PdfDocument document = new PdfDocument(PdfPage.PAGE.ToPdf,PdfImage.BEST_COMPRESSION);
+                                            PdfReader pdfReader = new PdfReader(pdf_path);
+                                            int noofpages = pdfReader.NumberOfPages;
 
-                                           
+                                            List<string> fileNames = new List<string>();
+
+                                            iTextSharp.text.Document document = new iTextSharp.text.Document();
+
+                                            //ocr directory create
+                                            string dirEx = dirname + "\\OCR";
+                                            if (!Directory.Exists(dirEx))
+                                            {
+                                                Directory.CreateDirectory(dirEx);
+                                            }
+
+                                            //split pdf
+                                            for (int i = 0; i < noofpages; i++)
+                                            {
+                                                using (MemoryStream ms = new MemoryStream())
+                                                {
+                                                    PdfLoadedDocument loadedDocument = new PdfLoadedDocument(pdf_path);
+                                                    Syncfusion.Pdf.PdfDocument documentPage = new Syncfusion.Pdf.PdfDocument();
+                                                    documentPage.ImportPage(loadedDocument, i);
+                                                    documentPage.Save(dirEx + "\\OCR_" + i + ".pdf");
+                                                    string filenameNew = dirEx + "\\OCR_" + i + ".pdf";
+                                                    //documentPage.Close();
+                                                    documentPage.Close(true);
+                                                    //documentPage.Dispose();
+                                                    //loadedDocument.Close();
+                                                    loadedDocument.Close(true);
+                                                    //loadedDocument.Dispose();
+                                                    documentPage.EnableMemoryOptimization = true;
+                                                    loadedDocument.EnableMemoryOptimization = true;
+                                                    fileNames.Add(filenameNew);
+                                                    //lstImage.Items.Add(filenameNew);
+
+                                                    ms.Close();
+
+                                                    GC.Collect();
+                                                    GC.WaitForPendingFinalizers();
+                                                    GC.Collect();
+
+                                                    Application.DoEvents();
+                                                }
+                                                Application.DoEvents();
+                                            }
+                                            string expath = Path.GetDirectoryName(Application.ExecutablePath);
+                                            //ocr
+                                            try
+                                            {
+                                                System.IO.DirectoryInfo di3 = new DirectoryInfo(dirEx);
+                                                foreach (string filename in fileNames)
+                                                {
+                                                    Application.DoEvents();
+                                                    string xyz = filename;
+                                                    //PdfLoadedDocument loadedDocument = new PdfLoadedDocument(pdf_path);
+                                                    //Syncfusion.Pdf.PdfDocument documentPage = new Syncfusion.Pdf.PdfDocument();
+                                                    //documentPage.ImportPage(loadedDocument, i);
+                                                    using (OCRProcessor oCR = new OCRProcessor(expath + "\\TesseractBinaries\\3.02\\"))
+                                                    {
+                                                        try
+                                                        {
+
+                                                            PdfLoadedDocument pdfLoadedDocument = new PdfLoadedDocument(xyz);
+
+                                                            oCR.Settings.Language = Syncfusion.OCRProcessor.Languages.English;
+
+                                                            oCR.PerformOCR(pdfLoadedDocument, expath + "\\tessdata\\", true);
+
+                                                            pdfLoadedDocument.EnableMemoryOptimization = true;
+
+                                                            pdfLoadedDocument.Save(xyz);
+
+                                                            pdfLoadedDocument.Close(true);
+
+                                                            oCR.Dispose();
+
+                                                            GC.Collect();
+                                                            GC.WaitForPendingFinalizers();
+                                                            GC.Collect();
+                                                        }
+                                                        catch (Exception)
+                                                        { continue; }
+                                                    }
+
+                                                }
+                                                string outFile = expFolder + "\\Export\\" + cmbBatch.Text + "\\" + fileName + ".pdf";
+                                                try
+                                                {
+                                                    //create newFileStream object which will be disposed at the end
+                                                    using (FileStream newFileStream = new FileStream(outFile, FileMode.Create))
+                                                    {
+                                                        Application.DoEvents();
+                                                        // step 2: we create a writer that listens to the document
+                                                        PdfCopy writer = new PdfCopy(document, newFileStream);
+                                                        if (writer == null)
+                                                        {
+                                                            return;
+                                                        }
+
+                                                        // step 3: open the document
+                                                        document.Open();
+
+                                                        foreach (string filename in fileNames)
+                                                        {
+                                                            Application.DoEvents();
+                                                            string xyz = filename;
+                                                            // create a reader for a certain document
+                                                            PdfReader reader = new PdfReader(xyz);
+                                                            reader.ConsolidateNamedDestinations();
+
+                                                            // step 4: add content
+                                                            for (int i = 1; i <= reader.NumberOfPages; i++)
+                                                            {
+                                                                PdfImportedPage page = writer.GetImportedPage(reader, i);
+                                                                writer.AddPage(page);
+                                                            }
+
+                                                            PRAcroForm form = reader.AcroForm;
+                                                            if (form != null)
+                                                            {
+                                                                writer.CopyAcroForm(reader);
+                                                            }
+
+                                                            reader.Close();
+                                                        }
+
+                                                        // step 5: close the document and writer
+                                                        writer.Close();
+                                                        document.Close();
+
+                                                        GC.Collect();
+                                                        GC.WaitForPendingFinalizers();
+                                                        GC.Collect();
+                                                    }//disposes the newFileStream object
+
+                                                    Directory.Delete(dirEx, true);
+
+                                                    //MessageBox.Show("OCR Completed Successfully ...");
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    MessageBox.Show(ex.ToString());
+                                                }
+                                            }
+                                            catch (Exception ex1)
+                                            { MessageBox.Show(ex1.ToString()); }
+
                                         }
                                         else
                                         {
@@ -650,7 +803,7 @@ namespace ImageHeaven
             string indexPageName = string.Empty;
 
             //sqlStr = "select a.District_Code,a.RO_Code,a.Book,a.Deed_year,a.Deed_no,a.Serial_No,a.Serial_Year,a.tran_maj_code,a.tran_min_code,a.Volume_No,a.Page_From,a.Page_To,a.Date_of_Completion,a.Date_of_Delivery,replace(replace(replace(a.Deed_Remarks,'\t',''),'\n',''),'\r','') as Deed_Remarks,a.Scan_doc_type,a.hold as Exception from deed_details a,deed_details_exception b where a.district_code = '" + Do_code + "' and a.Ro_code = '" + RO_Code + "' and a.book = '" + year + "' and a.deed_year = '" + deed_year + "'  and a.deed_no = '" + deed_no + "' and a.district_code = b.district_code and a.Ro_code = b.ro_code and a.book = b.book and a.deed_year =b.deed_year and a.deed_no = b.deed_no";
-            sqlStr = "select filename, issue_from as 'cesc.issued.from[en_US]',issue_to as 'cesc.issued.to[en_US]', sub_cat as 'cesc.subject.category[]', sub_name as 'cesc.subject[en_US]',date_format(issue_date,'%Y-%m-%d') as 'dc.date.issued[en_US]', letter_no as 'dc.title[en_US]', doc_type as 'dc.type[en_US]' from metadata_entry where proj_key = '" + proj_key + "' and batch_key = '" + batch_key + "'";
+            sqlStr = "select filename, issue_from as 'cesc.issued.from[en_US]',issue_to as 'cesc.issued.to[en_US]', sub_cat as 'cesc.subject.category[]', sub_name as 'cesc.subject[en_US]',date_format(issue_date,'%Y-%m-%d') as 'dc.date.issued[en_US]', reference_no as 'dc.title[en_US]', doc_type as 'dc.type[en_US]' from metadata_entry where proj_key = '" + proj_key + "' and batch_key = '" + batch_key + "'";
             try
             {
                 sqlAdap = new OdbcDataAdapter(sqlStr, sqlCon);
@@ -665,6 +818,7 @@ namespace ImageHeaven
                 //{
                 //    dsImage.Tables[0].Rows[i]["Exception_Type"] = exception.TrimEnd(';');
                 //}
+                dsImage.Tables[0].Columns.Remove("filename");
             }
             catch (Exception ex)
             {

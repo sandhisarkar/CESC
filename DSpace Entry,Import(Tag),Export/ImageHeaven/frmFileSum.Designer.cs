@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -40,10 +41,13 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvDash = new System.Windows.Forms.DataGridView();
+            this.cmsDeeds = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteDeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDash)).BeginInit();
+            this.cmsDeeds.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -152,6 +156,21 @@
             this.dgvDash.Size = new System.Drawing.Size(499, 354);
             this.dgvDash.TabIndex = 1;
             this.dgvDash.DoubleClick += new System.EventHandler(this.dgvDash_DoubleClick);
+            this.dgvDash.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvDash_MouseClick);
+            // 
+            // cmsDeeds
+            // 
+            this.cmsDeeds.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteDeedToolStripMenuItem});
+            this.cmsDeeds.Name = "cmsDeeds";
+            this.cmsDeeds.Size = new System.Drawing.Size(181, 48);
+            // 
+            // deleteDeedToolStripMenuItem
+            // 
+            this.deleteDeedToolStripMenuItem.Name = "deleteDeedToolStripMenuItem";
+            this.deleteDeedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteDeedToolStripMenuItem.Text = "&Delete File";
+            this.deleteDeedToolStripMenuItem.Click += new System.EventHandler(this.deleteDeedToolStripMenuItem_Click);
             // 
             // frmFileSum
             // 
@@ -176,6 +195,7 @@
             this.panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDash)).EndInit();
+            this.cmsDeeds.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -190,5 +210,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dgvDash;
+        private System.Windows.Forms.ContextMenuStrip cmsDeeds;
+        private System.Windows.Forms.ToolStripMenuItem deleteDeedToolStripMenuItem;
     }
 }

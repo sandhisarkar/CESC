@@ -634,3 +634,5 @@ D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag
 D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag),Export\NovaNet\Utils\obj\Debug\Utils.csproj.GenerateResource.Cache
 D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag),Export\NovaNet\Utils\obj\Debug\NovaNet.Utils.dll
 D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag),Export\NovaNet\Utils\obj\Debug\NovaNet.Utils.pdb
+D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag),Export\NovaNet\Utils\obj\Debug\Utils.csproj.CoreCompileInputs.cache
+D:\Sandhi Software\CSEC DSpace Batch Upload Tool Updated\DSpace Entry,Import(Tag),Export\NovaNet\Utils\obj\Debug\Utils.csproj.AssemblyReference.cache

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ImageHeaven</RootNamespace>
     <AssemblyName>ImageHeaven</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -23,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -32,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -53,12 +56,24 @@
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="nControls">
+      <HintPath>..\nControls\bin\Debug\nControls.dll</HintPath>
+    </Reference>
     <Reference Include="NovaNet.Utils, Version=1.3.4.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\NovaNet\Utils\bin\Debug\NovaNet.Utils.dll</HintPath>
     </Reference>
     <Reference Include="NovaNet.wfe">
       <HintPath>..\Record Management\bin\Debug\NovaNet.wfe.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Compression.Base">
+      <HintPath>..\Record Management\bin\Debug\Syncfusion.Compression.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.OCRProcessor.Base">
+      <HintPath>..\Record Management\bin\Debug\Syncfusion.OCRProcessor.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Pdf.Base">
+      <HintPath>..\Record Management\bin\Debug\Syncfusion.Pdf.Base.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -91,6 +106,12 @@
     </Compile>
     <Compile Include="frmBatchUpload.Designer.cs">
       <DependentUpon>frmBatchUpload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmBundleUpload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBundleUpload.Designer.cs">
+      <DependentUpon>frmBundleUpload.cs</DependentUpon>
     </Compile>
     <Compile Include="frmDataImport.cs">
       <SubType>Form</SubType>
@@ -128,6 +149,12 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmProduction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProduction.Designer.cs">
+      <DependentUpon>frmProduction.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmProject.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +173,9 @@
     <EmbeddedResource Include="frmBatchUpload.resx">
       <DependentUpon>frmBatchUpload.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmBundleUpload.resx">
+      <DependentUpon>frmBundleUpload.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDataImport.resx">
       <DependentUpon>frmDataImport.cs</DependentUpon>
     </EmbeddedResource>
@@ -163,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProduction.resx">
+      <DependentUpon>frmProduction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmProject.resx">
       <DependentUpon>frmProject.cs</DependentUpon>

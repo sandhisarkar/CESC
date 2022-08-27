@@ -85,21 +85,21 @@ namespace ImageHeaven
                     pos = path.IndexOf("\\\\");
                     if (pos == -1)
                     {
-                        //int posSnd = path.IndexOf("\\", 2);
-                        //string compName = path.Substring(pos + 2, posSnd - 2);
-                        string compName = path;
-                        //string restPath = path.Substring(posSnd);
+                        int posSnd = path.IndexOf("\\", 2);
+                        string compName = path.Substring(pos + 2, posSnd - 2);
+                        //string compName = path;
+                        string restPath = path.Substring(posSnd);
                         if (compName != string.Empty)
                         {
                             try
                             {
-                                //IPHostEntry ip = Dns.GetHostEntry(compName);
-                                //IPAddress[] IpA = ip.AddressList;
-                                //for (int i = 0; i < IpA.Length; i++)
-                                //{
-                                //    origIp = IpA[i].ToString();
-                                //}
-                                //path = "\\\\" + origIp + restPath;
+                                IPHostEntry ip = Dns.GetHostEntry(compName);
+                                IPAddress[] IpA = ip.AddressList;
+                                for (int i = 0; i < IpA.Length; i++)
+                                {
+                                    origIp = IpA[i].ToString();
+                                }
+                                path = "\\\\" + origIp + restPath;
                                 fs = new System.IO.FileStream(path + "\\temp.txt", System.IO.FileMode.Append);
                                 fs.Close();
                                 System.IO.File.Delete(path + "\\temp.txt");
