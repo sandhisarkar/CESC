@@ -372,7 +372,7 @@ namespace ImageHeaven
             if ((xyz == null) || (xyz == ""))
             {
 
-                sl_no = "0";
+                sl_no = "1";
                 filenameAdd = txtLetterNo.Text.ToUpper();
             }
             else
@@ -405,11 +405,11 @@ namespace ImageHeaven
             sql = "insert into metadata_entry(proj_key,batch_key,sl_no,item_no,reference_no,issue_from,issue_to,sub_cat,sub_name,doc_type,issue_date,filename,created_by,created_dttm,status)" +
                     "values('" + frmBatchSelect.projKey + "', " +
                         "'" + frmBatchSelect.batchKey + "', " +
-                        "'" + sl_no + "', " +
+                        "'" + item_no + "', " +
                         "'" + item_no + "', " +
                         "'" + txtLetterNo.Text.ToUpper() + "', " +
                         "'" + txtIssuedFrom.Text.ToUpper() + "', " +
-                        "'" + txtIssuedTo.Text.ToUpper() + "','" + cmbSubCat.Text + "','" + txtSubject.Text + "','" + cmbDocType.Text + "','" + txtYear.Text + "-" + cmbMonth.Text + "-" + txtDate.Text + "','" + filenameAdd.ToUpper() + "','" + frmMain.name + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "','N')";
+                        "'" + txtIssuedTo.Text.ToUpper() + "','" + cmbSubCat.Text + "','" + txtSubject.Text + "','" + cmbDocType.Text + "','" + txtYear.Text + "-" + cmbMonth.Text + "-" + txtDate.Text + "','" + filenameAdd.ToUpper() + "','" + frmMain.name + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','N')";
 
 
             System.Diagnostics.Debug.Print(sql);

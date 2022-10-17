@@ -583,7 +583,7 @@ namespace ImageHeaven
 
                 sqlStr = @"insert into image_import(proj_key,batch_key, filename,created_by,created_dttm,Page_name,status,photo,serial_no,page_index_name) values('" +
                             cmbProject.SelectedValue.ToString() + "','" + cmbBatch.SelectedValue.ToString() + "','" + PolicyNo +
-                            "','" + frmMain.name + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "','" + image + "','0','0','" + imageNo + "','" + image + "')";
+                            "','" + frmMain.name + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + image + "','0','0','" + imageNo + "','" + image + "')";
                 sqlCmd.Connection = sqlCon;
                 sqlCmd.Transaction = trans;
                 sqlCmd.CommandText = sqlStr;
