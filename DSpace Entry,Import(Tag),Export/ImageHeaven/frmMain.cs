@@ -118,6 +118,7 @@ namespace ImageHeaven
                         exportToolStripMenuItem.Visible = true;
                         batchUploadToolStripMenuItem.Visible = true;
                         productionReportToolStripMenuItem.Visible = true;
+                        batchWiseReportToolStripMenuItem.Visible = true;
                     }
                     else
                     {
@@ -132,7 +133,7 @@ namespace ImageHeaven
                         exportToolStripMenuItem.Visible = false;
                         batchUploadToolStripMenuItem.Visible = false;
                         productionReportToolStripMenuItem.Visible = true;
-
+                        batchWiseReportToolStripMenuItem.Visible = true;
                     }
                 }
             }
@@ -312,6 +313,17 @@ namespace ImageHeaven
         {
             frmProduction frm = new frmProduction(sqlCon);
             frm.ShowDialog();
+        }
+
+        private void reportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void batchWiseReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmBatchReport frm = new frmBatchReport(sqlCon);
+            frm.ShowDialog(this);
         }
     }
 }

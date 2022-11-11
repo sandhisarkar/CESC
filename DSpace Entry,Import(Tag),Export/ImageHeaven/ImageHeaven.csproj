@@ -95,6 +95,12 @@
     <Compile Include="frmBatch.Designer.cs">
       <DependentUpon>frmBatch.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmBatchReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBatchReport.Designer.cs">
+      <DependentUpon>frmBatchReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmBatchSelect.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmBatch.resx">
       <DependentUpon>frmBatch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBatchReport.resx">
+      <DependentUpon>frmBatchReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmBatchSelect.resx">
       <DependentUpon>frmBatchSelect.cs</DependentUpon>

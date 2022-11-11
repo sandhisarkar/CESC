@@ -43,12 +43,13 @@
             this.newPasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.onlineUsersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.productionReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.batchWiseReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -176,6 +177,23 @@
             this.onlineUsersToolStripMenuItem.Text = "Online Users";
             this.onlineUsersToolStripMenuItem.Click += new System.EventHandler(this.onlineUsersToolStripMenuItem_Click);
             // 
+            // reportToolStripMenuItem
+            // 
+            this.reportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.productionReportToolStripMenuItem,
+            this.batchWiseReportToolStripMenuItem});
+            this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
+            this.reportToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.reportToolStripMenuItem.Text = "Report";
+            this.reportToolStripMenuItem.Click += new System.EventHandler(this.reportToolStripMenuItem_Click);
+            // 
+            // productionReportToolStripMenuItem
+            // 
+            this.productionReportToolStripMenuItem.Name = "productionReportToolStripMenuItem";
+            this.productionReportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.productionReportToolStripMenuItem.Text = "&Production Report";
+            this.productionReportToolStripMenuItem.Click += new System.EventHandler(this.productionReportToolStripMenuItem_Click);
+            // 
             // logoutToolStripMenuItem
             // 
             this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
@@ -194,20 +212,17 @@
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // reportToolStripMenuItem
+            // toolStripStatusLabel1
             // 
-            this.reportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.productionReportToolStripMenuItem});
-            this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
-            this.reportToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
-            this.reportToolStripMenuItem.Text = "Report";
-            // 
-            // productionReportToolStripMenuItem
-            // 
-            this.productionReportToolStripMenuItem.Name = "productionReportToolStripMenuItem";
-            this.productionReportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.productionReportToolStripMenuItem.Text = "&Production Report";
-            this.productionReportToolStripMenuItem.Click += new System.EventHandler(this.productionReportToolStripMenuItem_Click);
+            this.toolStripStatusLabel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.toolStripStatusLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.OrangeRed;
+            this.toolStripStatusLabel1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripStatusLabel1.Image")));
+            this.toolStripStatusLabel1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(268, 17);
+            this.toolStripStatusLabel1.Text = "  Developed By : Nevaeh Technology Pvt. Ltd.  ";
+            this.toolStripStatusLabel1.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
             // 
             // pictureBox1
             // 
@@ -220,17 +235,12 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // toolStripStatusLabel1
+            // batchWiseReportToolStripMenuItem
             // 
-            this.toolStripStatusLabel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.toolStripStatusLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.OrangeRed;
-            this.toolStripStatusLabel1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripStatusLabel1.Image")));
-            this.toolStripStatusLabel1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(268, 16);
-            this.toolStripStatusLabel1.Text = "  Developed By : Nevaeh Technology Pvt. Ltd.  ";
-            this.toolStripStatusLabel1.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
+            this.batchWiseReportToolStripMenuItem.Name = "batchWiseReportToolStripMenuItem";
+            this.batchWiseReportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.batchWiseReportToolStripMenuItem.Text = "Batch Wise &Report";
+            this.batchWiseReportToolStripMenuItem.Click += new System.EventHandler(this.batchWiseReportToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -282,6 +292,7 @@
         private System.Windows.Forms.ToolStripMenuItem batchUploadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem productionReportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem batchWiseReportToolStripMenuItem;
     }
 }
 
